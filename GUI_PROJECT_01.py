@@ -8,13 +8,16 @@ pg.font.init()
 
 BLACK = pg.Color('black')
 WHITE = pg.Color('white')
+PINK  = pg.Color('pink')
 
 screen = pg.display.set_mode((800, 600))
 clock = pg.time.Clock()
 
 colors = itertools.cycle((WHITE))
-tile_size = 40
-width, height = 8*tile_size, 8*tile_size
+tile_size = 20
+a = 2
+cross_size = tile_size*a
+width, height = 14*tile_size, 14*tile_size
 background = pg.Surface((width, height))
 
 pg.display.set_caption('GUI_PROJECT_01')
@@ -24,8 +27,18 @@ for y in range(0, height, tile_size):
     for x in range(0, width, tile_size):
         rect = (x, y, tile_size, tile_size)
         pg.draw.rect(background, next(colors), rect)
-        pg.draw.circle(background,WHITE,[40,40],tile_size)
-        pg.draw.circle(background,pg.Color('red'),[7*40,7*40],tile_size)
+        pg.draw.line(background,PINK,[0,cross_size],[width,cross_size],5)
+        pg.draw.line(background,PINK,[cross_size,0],[cross_size,height],5)
+        
+        a = a +2 
+        cross_size = a*tile_size
+
+        if cross_size > 14*tile_size:
+            a = 2
+            cross_size = a*tile_size
+
+        pg.draw.circle(background,WHITE,[tile_size,tile_size],tile_size)
+        pg.draw.circle(background,pg.Color('red'),[13*tile_size,13*tile_size],tile_size)
     next(colors)
 
 game_exit = False
